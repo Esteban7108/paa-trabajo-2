@@ -1,0 +1,17 @@
+############################
+# Node / React / Vite
+############################
+node_modules/
+dist/
+build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+coverage/
+
+*.out
+*.exe
+*.dll
+*.class
