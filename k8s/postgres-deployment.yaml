@@ -1,9 +1,8 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: postgres
 spec:
-  serviceName: postgres-service
   replicas: 1
   selector:
     matchLabels:
@@ -18,13 +17,23 @@ spec:
           image: postgres:15
           ports:
             - containerPort: 5432
-          envFrom:
-            - secretRef:
-                name: postgres-secret
+          env:
+            - name: POSTGRES_DB
+              value: YW5pbWFsZXNkYg==
+            - name: POSTGRES_USER
+              value: cm9vdA==
+            - name: POSTGRES_PASSWORD
+              value: cm9vdA==
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
-      volumes:s
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              memory: "512Mi"
+      volumes:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc

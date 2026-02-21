@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-WORKDIR /pagos-api
+WORKDIR /api
 
 COPY . .
 
