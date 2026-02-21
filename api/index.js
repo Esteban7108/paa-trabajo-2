@@ -24,6 +24,11 @@ app.get("/animales", async (req, res) => {
   animales === false ? res.status(500).json({ message: "Error desconocido en la db" }) : res.status(200).json({ animales: animales.rows });
 });
 
+app.get("/health", (req,res)=>{
+  res.status(200).send("OK");
+
+})
+
 app.post("/animales", async (req, res) => {
   const {nombre} = req.body;
   
