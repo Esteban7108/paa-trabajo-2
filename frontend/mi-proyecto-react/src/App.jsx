@@ -1,25 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
-
   const [animal, setAnimal] = useState("");
-
   const [lista, setLista] = useState([]);
 
-  const agregarAnimal = () => {
-    if (animal.trim() === "") return;
 
-    const nuevoAnimal = {
-      id: 0,
-      nombre: animal,
-      hora: 0
-    };
+  useEffect(() => {
+    axios.get(`${API_URL}/animales`)
+      .then(res => {
+        setLista(res.data.animales);
+      })
+      .catch(err => {
+        console.error("Error cargando animales:", err);
+      });
+  }, []);
 
-    setLista([...lista, nuevoAnimal]);
+const agregarAnimal = async () => {
+  if (animal.trim() === "") return;
+
+  try {
+    await axios.post(`${API_URL}/animales`, {
+      nombre: animal
+    });
+
     setAnimal("");
-  };
 
-  // Detectar tecla Enter
+
+    const res = await axios.get(`${API_URL}/animales`);
+    setLista(res.data.animales);
+
+  } catch (err) {
+    console.error("Error agregando animal:", err);
+  }
+};
+
   const manejarTecla = (e) => {
     if (e.key === "Enter") {
       agregarAnimal();
@@ -69,25 +86,20 @@ function App() {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Animal</th>
-              <th>Hora</th>
+              <th>Animal</th> 
             </tr>
           </thead>
 
           <tbody>
-            {lista.map((item, index) => (
-              <tr key={index}>
-                <td>{item.id}</td>
+            {lista.map((item) => (
+              <tr key={item.id}>
                 <td>{item.nombre}</td>
-                <td>{item.hora}</td>
               </tr>
             ))}
           </tbody>
 
         </table>
       </div>
-
     </div>
   );
 }

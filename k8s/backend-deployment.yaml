@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: <BACKEND_IMAGE>
+          image: backend-animales:1.0.0
           ports:
             - containerPort: 8080
           env:
