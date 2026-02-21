@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+const API_URL = "/api";
 
 function App() {
   const [animal, setAnimal] = useState("");
@@ -18,24 +18,24 @@ function App() {
       });
   }, []);
 
-const agregarAnimal = async () => {
-  if (animal.trim() === "") return;
+  const agregarAnimal = async () => {
+    if (animal.trim() === "") return;
 
-  try {
-    await axios.post(`${API_URL}/animales`, {
-      nombre: animal
-    });
+    try {
+      await axios.post(`${API_URL}/animales`, {
+        nombre: animal
+      });
 
-    setAnimal("");
+      setAnimal("");
 
 
-    const res = await axios.get(`${API_URL}/animales`);
-    setLista(res.data.animales);
+      const res = await axios.get(`${API_URL}/animales`);
+      setLista(res.data.animales);
 
-  } catch (err) {
-    console.error("Error agregando animal:", err);
-  }
-};
+    } catch (err) {
+      console.error("Error agregando animal:", err);
+    }
+  };
 
   const manejarTecla = (e) => {
     if (e.key === "Enter") {
@@ -45,12 +45,12 @@ const agregarAnimal = async () => {
 
   return (
     <div className="container-fluid min-vh-100 pt-4 px-4 bg-light">
-      
+
       <h2 className="text-center mb-4">¡Bienvenido!</h2>
 
       <div className="mb-4 bg-secondary rounded-3 p-4">
         <div className="row align-items-center">
-          
+
           <div className="col-3">
             <label className="form-label mb-0 text-white">
               Ingresa un nombre de un animal:
@@ -69,7 +69,7 @@ const agregarAnimal = async () => {
           </div>
 
           <div className="col-3 d-flex justify-content-center">
-            <button 
+            <button
               className="btn btn-primary"
               onClick={agregarAnimal}
             >
@@ -86,7 +86,7 @@ const agregarAnimal = async () => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Animal</th> 
+              <th>Animal</th>
             </tr>
           </thead>
 

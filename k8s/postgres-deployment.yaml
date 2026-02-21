@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: postgres-deployment
 spec:
   replicas: 1
   selector:
@@ -19,11 +19,11 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: YW5pbWFsZXNkYg==
+              value: animalesdb
             - name: POSTGRES_USER
-              value: cm9vdA==
+              value: root
             - name: POSTGRES_PASSWORD
-              value: cm9vdA==
+              value: root
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data

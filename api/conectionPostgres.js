@@ -1,9 +1,9 @@
-import pg from "pg"
+import pg from "pg";
 
 export const pool = new pg.Pool({
-  host:"postgres-service",
-  port:5432,
+  host: "postgres-service",
+  port: 5432,
   database: "animalesdb",
   user: "root",
-  password:"root"
-})
+  password: "root",
+});
