@@ -40,9 +40,12 @@ const getAnimales = async () => {
 router.get("/animales", async (req, res) => {
   const animales = await getAnimales();
   animales === false
-    ? res.status(500).json({ message: "Error desconocido en la db" })
+    ? res.status(500).json({ message: "Error en la db, revisar logs" })
     : res.status(200).json({ animales: animales.rows });
 });
+router.get("/nuevo", (req,res)=>{
+  res.status(200).send("La bola en la ingle");
+})
 
 router.post("/animales", async (req, res) => {
   const { nombre } = req.body;
@@ -64,7 +67,7 @@ router.post("/animales", async (req, res) => {
     console.log(`[INSERTADO] Animal ${nombre} | Fecha/hora: ${new Date()}`);
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ message: "Error desconocido en la db" });
+    return res.status(500).json({ message: "Error en la db", error: e });
   }
 
   res.status(201).json({ message: "Almacenado correctamente", nombre: nombre });
